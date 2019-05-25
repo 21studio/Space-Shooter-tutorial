@@ -7,7 +7,7 @@ public class DestroyByContact : MonoBehaviour
     public GameObject explosion;
     public GameObject playerExplosion;
     public int scoreValue;
-    private GameController gameController;
+    private GameController gameController; // 인스턴스에 대한 레퍼런스를 보관할 변수를 작성
 
     void Start ()
     {
@@ -24,13 +24,10 @@ public class DestroyByContact : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log(other.name);
-        
-        // 09 Creating hazards 7분 40초인데, 왜 나타나자 마자 사라지는지??
+    {                
+        // Boundary 안에 생성되자마자 사라지는 상황을 방지. 리턴하여 빠져나옴
         if (other.tag == "Boundary")
-        {
-            Debug.Log(other.name);
+        {            
             return;
         }
         
@@ -38,7 +35,7 @@ public class DestroyByContact : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            Instantiate(playerExplosion, other.transform.position, other.transform.rotation); //본체 폭발 프리팹
+            Instantiate(playerExplosion, other.transform.position, other.transform.rotation); //player 폭발 프리팹
             gameController.GameOver ();
         }
 
